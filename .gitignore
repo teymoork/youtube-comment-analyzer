@@ -1,0 +1,15 @@
+# /home/tkh/repos/hugging_face/youtube_comment_analyzer/.gitignore
+
+# Poetry / Python
+.venv/
+__pycache__/
+*.pyc
+
+# IDE specific
+.idea/
+.vscode/
+
+# Generated data
+processed_data/
+
+# Temporary scripts

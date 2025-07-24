@@ -1,0 +1,24 @@
+# /home/tkh/repos/hugging_face/youtube_comment_analyzer/pyproject.toml
+[tool.poetry]
+name = "youtube-comment-analyzer"
+version = "0.1.0"
+description = "A CLI tool to analyze YouTube comments for emotion and toxicity."
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+typer = {extras = ["all"], version = "^0.9.0"}
+transformers = "^4.35.2"
+torch = "^2.1.0"
+pydantic = "^2.5.2"
+loguru = "^0.7.2"
+accelerate = "^0.25.0"
+sentencepiece = "^0.1.99"
+protobuf = "3.20.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
