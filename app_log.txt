@@ -95,3 +95,225 @@
 2025-07-25 14:53:28.501 | INFO     | src.data_utils:save_analysis_results:72 - DEBUG: Preparing to save object with 3 videos and 45 total comments.
 2025-07-25 14:53:28.502 | INFO     | src.data_utils:save_analysis_results:77 - Saving analysis results to: /home/tkh/repos/hugging_face/youtube_comment_analyzer/processed_data/analysis_vahid_bahman.json
 2025-07-25 14:53:28.508 | SUCCESS  | src.data_utils:save_analysis_results:81 - Successfully saved analysis results to analysis_vahid_bahman.json
+2025-07-25 14:58:00.418 | INFO     | src.analysis:load_analysis_pipelines:29 - Loading analysis models. Using device: CPU
+2025-07-25 14:58:00.418 | INFO     | src.analysis:load_analysis_pipelines:32 - Loading Persian emotion model: /home/tkh/huggingface_models/HooshvareLab-bert-fa-base-uncased-clf-persiannews
+2025-07-25 14:58:01.229 | SUCCESS  | src.analysis:load_analysis_pipelines:39 - Persian emotion model loaded successfully.
+2025-07-25 14:58:01.229 | INFO     | src.analysis:load_analysis_pipelines:42 - Loading translation model: /home/tkh/huggingface_models/persiannlp-mt5-base-translation
+2025-07-25 14:58:08.443 | SUCCESS  | src.analysis:load_analysis_pipelines:48 - Translation model loaded successfully.
+2025-07-25 14:58:08.444 | INFO     | src.analysis:load_analysis_pipelines:51 - Loading English emotion model: /home/tkh/huggingface_models/j-hartmann-emotion-english-distilroberta-base
+2025-07-25 14:58:08.797 | SUCCESS  | src.analysis:load_analysis_pipelines:58 - English emotion model loaded successfully.
+2025-07-25 14:58:08.798 | INFO     | src.analysis:load_analysis_pipelines:61 - Loading irony model: /home/tkh/huggingface_models/twitter-roberta-base-irony
+2025-07-25 14:58:09.298 | SUCCESS  | src.analysis:load_analysis_pipelines:67 - Irony model loaded successfully.
+2025-07-25 14:59:29.639 | INFO     | src.data_utils:load_channel_data:25 - Loading data from: /home/tkh/repos/ml/graph-ml/youtube/data_collection/processed_data/channels/vahid_bahman.json
+2025-07-25 14:59:30.621 | SUCCESS  | src.data_utils:load_channel_data:29 - Successfully loaded raw data from vahid_bahman.json
+2025-07-25 14:59:31.183 | INFO     | src.data_utils:load_or_initialize_results:49 - Found existing analysis file. Loading: analysis_vahid_bahman.json
+2025-07-25 15:00:07.854 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz9z2LNZ0MZLhypvc14AaABAg
+2025-07-25 15:00:10.212 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzGVS3MxA1vuV3mDeF4AaABAg
+2025-07-25 15:00:11.654 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugwaq9OZR-LRXcwlKMh4AaABAg
+2025-07-25 15:00:15.084 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxIkTBc71VE9tOEZ4d4AaABAg
+2025-07-25 15:00:15.772 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwGOxFDmBNrgeGy9gR4AaABAg
+2025-07-25 15:00:16.622 | WARNING  | __main__:run_analysis_on_comment:95 - Comment UgyLGnfESDTtL_FXaEt4AaABAg is too long (747 chars). Truncating to 500.
+2025-07-25 15:00:16.622 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyLGnfESDTtL_FXaEt4AaABAg
+2025-07-25 15:00:33.117 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy4ZM0I4CrH8TJzyQ94AaABAg
+2025-07-25 15:00:38.918 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugyu61hL4xRpHcSSBEZ4AaABAg
+2025-07-25 15:00:45.634 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugye8PziSQy4daXQqER4AaABAg
+2025-07-25 15:00:47.811 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyJzgGapu61ekrZ7w94AaABAg
+2025-07-25 15:00:53.780 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugxvt8atZzDHSL2FMH94AaABAg
+2025-07-25 15:00:56.033 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyOKO8n5vwgJgCfJXd4AaABAg
+2025-07-25 15:00:57.982 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwRa1ZYrCuEBQPQGCp4AaABAg
+2025-07-25 15:01:02.119 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxloFOJrDtkc-Of29l4AaABAg
+2025-07-25 15:01:03.382 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxJGw-etYZy6HbpH1V4AaABAg
+2025-07-25 15:01:05.179 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzXthZ2xD0HU8utb8p4AaABAg
+2025-07-25 15:01:07.932 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyH8eBKd_wzkccd-3N4AaABAg
+2025-07-25 15:01:11.766 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugxlvn8rB9eaEh12aQ94AaABAg
+2025-07-25 15:01:17.056 | WARNING  | __main__:run_analysis_on_comment:95 - Comment Ugy0YqZFvskrZ5Nn95p4AaABAg is too long (517 chars). Truncating to 500.
+2025-07-25 15:01:17.056 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy0YqZFvskrZ5Nn95p4AaABAg
+2025-07-25 15:01:30.746 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy7vxJSeA6JYizBcsB4AaABAg
+2025-07-25 15:01:33.067 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwMdSgB01ZBCGu8GI54AaABAg
+2025-07-25 15:01:36.866 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugzn6lod_DBLhZqpa254AaABAg
+2025-07-25 15:01:41.348 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwNLEBQDJgnjocjOE94AaABAg
+2025-07-25 15:01:47.637 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxFfKi1oMb9GluP0dp4AaABAg
+2025-07-25 15:01:49.411 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyNr7AU67lA3CmbllN4AaABAg
+2025-07-25 15:01:50.351 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz3jaSGQcx_MXrmund4AaABAg
+2025-07-25 15:01:51.279 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxnodbxzEF3-RQYaWV4AaABAg
+2025-07-25 15:01:52.470 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxAoeBuD--0NZmG-Kl4AaABAg
+2025-07-25 15:01:55.241 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwKuIrOIaEolKvmiad4AaABAg
+2025-07-25 15:01:58.513 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugww2mSpw_R1wajnNS94AaABAg
+2025-07-25 15:01:58.953 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugx4ezLLk9Fp4nHLyeR4AaABAg
+2025-07-25 15:02:01.178 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxsHqWXh7x-_xJF3ON4AaABAg
+2025-07-25 15:02:06.482 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwqT1Qxcu_g1sf_TS94AaABAg
+2025-07-25 15:02:10.252 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugwjdto5dfIfgV6kbEd4AaABAg
+2025-07-25 15:02:13.312 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwmNhiCXkws0LicbZZ4AaABAg
+2025-07-25 15:04:18.398 | INFO     | src.data_utils:save_analysis_results:72 - DEBUG: Preparing to save object with 4 videos and 80 total comments.
+2025-07-25 15:04:18.399 | INFO     | src.data_utils:save_analysis_results:77 - Saving analysis results to: /home/tkh/repos/hugging_face/youtube_comment_analyzer/processed_data/analysis_vahid_bahman.json
+2025-07-25 15:04:18.420 | SUCCESS  | src.data_utils:save_analysis_results:81 - Successfully saved analysis results to analysis_vahid_bahman.json
+2025-07-25 15:04:47.644 | INFO     | src.analysis:load_analysis_pipelines:29 - Loading analysis models. Using device: CPU
+2025-07-25 15:04:47.644 | INFO     | src.analysis:load_analysis_pipelines:32 - Loading Persian emotion model: /home/tkh/huggingface_models/HooshvareLab-bert-fa-base-uncased-clf-persiannews
+2025-07-25 15:04:48.415 | SUCCESS  | src.analysis:load_analysis_pipelines:39 - Persian emotion model loaded successfully.
+2025-07-25 15:04:48.415 | INFO     | src.analysis:load_analysis_pipelines:42 - Loading translation model: /home/tkh/huggingface_models/persiannlp-mt5-base-translation
+2025-07-25 15:04:55.974 | SUCCESS  | src.analysis:load_analysis_pipelines:48 - Translation model loaded successfully.
+2025-07-25 15:04:55.974 | INFO     | src.analysis:load_analysis_pipelines:51 - Loading English emotion model: /home/tkh/huggingface_models/j-hartmann-emotion-english-distilroberta-base
+2025-07-25 15:04:56.321 | SUCCESS  | src.analysis:load_analysis_pipelines:58 - English emotion model loaded successfully.
+2025-07-25 15:04:56.321 | INFO     | src.analysis:load_analysis_pipelines:61 - Loading irony model: /home/tkh/huggingface_models/twitter-roberta-base-irony
+2025-07-25 15:04:56.787 | SUCCESS  | src.analysis:load_analysis_pipelines:67 - Irony model loaded successfully.
+2025-07-25 15:05:02.226 | INFO     | src.data_utils:load_channel_data:25 - Loading data from: /home/tkh/repos/ml/graph-ml/youtube/data_collection/processed_data/channels/vahid_bahman.json
+2025-07-25 15:05:03.187 | SUCCESS  | src.data_utils:load_channel_data:29 - Successfully loaded raw data from vahid_bahman.json
+2025-07-25 15:05:03.751 | INFO     | src.data_utils:load_or_initialize_results:49 - Found existing analysis file. Loading: analysis_vahid_bahman.json
+2025-07-25 15:05:56.066 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugxlb9Y43vgVXtO744h4AaABAg
+2025-07-25 15:05:57.387 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwJT0UI-fDvo_z7vN94AaABAg
+2025-07-25 15:05:58.533 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwXng9mIq5XcGWFmH54AaABAg
+2025-07-25 15:05:59.995 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwoobF1FmpxomKmx9x4AaABAg
+2025-07-25 15:06:02.133 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwkrKhOvXZweBfsAw54AaABAg
+2025-07-25 15:06:07.082 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugwj4ikZPtozESdjrvx4AaABAg
+2025-07-25 15:06:08.194 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz_d5q1QGSrTDVUApN4AaABAg
+2025-07-25 15:06:14.235 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwsiWjC8yUAorQbOu54AaABAg
+2025-07-25 15:06:15.561 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugxbz8dwxn9JOz9n0FZ4AaABAg
+2025-07-25 15:06:16.686 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwblAliHlCYBMhU3q94AaABAg
+2025-07-25 15:06:18.045 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw9Kp0jATzQ2c-UbSR4AaABAg
+2025-07-25 15:06:22.653 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz1Zptg7ny87efNLyh4AaABAg
+2025-07-25 15:06:26.730 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzesgatJXIFYfYW9nJ4AaABAg
+2025-07-25 15:06:27.481 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugx4pHLpn9qgGkisWfB4AaABAg
+2025-07-25 15:06:32.568 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw1x_X2zJjqWH-Vhbt4AaABAg
+2025-07-25 15:06:35.932 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxCdIR0KUi7rT1De6t4AaABAg
+2025-07-25 15:06:39.266 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzS4N2Qd-CyZJSPrHx4AaABAg
+2025-07-25 15:06:40.718 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwKeR74JYiGPnPYfiJ4AaABAg
+2025-07-25 15:06:41.556 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugx-b_Ef9u4JZcn04Ch4AaABAg
+2025-07-25 15:06:56.062 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxGzxjiSUsFwWXqXAp4AaABAg
+2025-07-25 15:06:57.236 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwQdTTs8oErM0RVfAh4AaABAg
+2025-07-25 15:06:58.162 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugzh8Aw-EDeuj2kigHV4AaABAg
+2025-07-25 15:07:02.204 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwXzXmCIlAKGV8FFJd4AaABAg
+2025-07-25 15:07:03.831 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy9QgHxRzgIild4y214AaABAg
+2025-07-25 15:07:05.484 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzFJiRTPhd81ytNmnN4AaABAg
+2025-07-25 15:07:09.404 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyhLoQEBnkVYSKV8cx4AaABAg
+2025-07-25 15:07:14.995 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyqAFZcW4eOWxzHBIp4AaABAg
+2025-07-25 15:07:15.762 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgynjThpQ_ownKmcNl14AaABAg
+2025-07-25 15:07:16.677 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyDPbeCb5ormnNNEL14AaABAg
+2025-07-25 15:07:22.575 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzyE7EF6h8MHv-VAhd4AaABAg
+2025-07-25 15:07:23.798 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw_ckgnlzh2_ZOYwOR4AaABAg
+2025-07-25 15:07:24.756 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyXl_epYmV_ULNLFEx4AaABAg
+2025-07-25 15:07:27.560 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwJcWrk8ESUl5p1Xfh4AaABAg
+2025-07-25 15:07:29.980 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwLYiwyQF1F5JPTGUx4AaABAg
+2025-07-25 15:08:12.367 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyqCfeIqb3XSsKvfWN4AaABAg
+2025-07-25 15:08:23.052 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy_SqL1id67eqpinBd4AaABAg
+2025-07-25 15:08:23.732 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw8Z6TZnVbt7f5vyXh4AaABAg
+2025-07-25 15:08:26.414 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwVK06KDhG_p1rw5v54AaABAg
+2025-07-25 15:08:29.251 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyNaNAymR4RCt-IbFF4AaABAg
+2025-07-25 15:08:31.175 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyJPwQG7Enqft5c3x14AaABAg
+2025-07-25 15:08:33.075 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzkQVa89j6gPEZlTCN4AaABAg
+2025-07-25 15:08:42.054 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugwkg3ZpyY78LAYyENh4AaABAg
+2025-07-25 15:08:42.883 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy3iFgR8rWFNFeg9oN4AaABAg
+2025-07-25 15:08:45.353 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzDTAyOFij7dtys3VJ4AaABAg
+2025-07-25 15:08:47.711 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyYr8-1WjJwbgyjlNd4AaABAg
+2025-07-25 15:08:49.395 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzAn9WrMultN52gizN4AaABAg
+2025-07-25 15:08:49.945 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy3grSwZmz42Ts_rhN4AaABAg
+2025-07-25 15:08:58.534 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxIn7h7dOa3f2IP8EJ4AaABAg
+2025-07-25 15:09:00.216 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwI1qkOZeRtmj3pzwN4AaABAg
+2025-07-25 15:09:01.050 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugxq74OWQtv_g6BYj6l4AaABAg
+2025-07-25 15:09:01.786 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyfQPN5ACRLzQym4pd4AaABAg
+2025-07-25 15:09:03.034 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw12xnmXtnsVFcZ6w14AaABAg
+2025-07-25 15:09:11.983 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz5sTBNXBiHWLcS2NV4AaABAg
+2025-07-25 15:09:13.407 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxfiqH73SltMeApAeZ4AaABAg
+2025-07-25 15:09:14.487 | WARNING  | __main__:run_analysis_on_comment:95 - Comment UgyvIDsl3nGs5f-JzNl4AaABAg is too long (1014 chars). Truncating to 500.
+2025-07-25 15:09:14.488 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyvIDsl3nGs5f-JzNl4AaABAg
+2025-07-25 15:09:31.546 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyjmvDoN9zKM14LN8t4AaABAg
+2025-07-25 15:09:33.693 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyYzsysGR4eax-w7QJ4AaABAg
+2025-07-25 15:09:34.368 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzZgcngNIsQTCwCu4d4AaABAg
+2025-07-25 15:09:34.964 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyZ4wJwdhKUoJoe0wp4AaABAg
+2025-07-25 15:09:35.959 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzKpDWaiTF_I8Wtf1t4AaABAg
+2025-07-25 15:09:36.442 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugyf1uSYYdfX8HTWqsh4AaABAg
+2025-07-25 15:09:45.974 | WARNING  | __main__:run_analysis_on_comment:95 - Comment UgxSVdt5FDWRNCHyZm54AaABAg is too long (842 chars). Truncating to 500.
+2025-07-25 15:09:45.974 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxSVdt5FDWRNCHyZm54AaABAg
+2025-07-25 15:10:51.508 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz9mkj1vHfuKhGvNYZ4AaABAg
+2025-07-25 15:10:52.946 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzfbW4E5LtWRuOap4Z4AaABAg
+2025-07-25 15:10:53.561 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxZRkzZ51Exp7wXy_J4AaABAg
+2025-07-25 15:11:31.020 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgweYm3ptzgD7iZcNWd4AaABAg
+2025-07-25 15:11:43.877 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxmIR46Cu3UZ2qBIqx4AaABAg
+2025-07-25 15:11:47.137 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxJo4IC4y1lxae7FCV4AaABAg
+2025-07-25 15:11:47.898 | WARNING  | __main__:run_analysis_on_comment:95 - Comment Ugw5lYu2OhGiKTe-pe94AaABAg is too long (773 chars). Truncating to 500.
+2025-07-25 15:11:47.898 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw5lYu2OhGiKTe-pe94AaABAg
+2025-07-25 15:12:01.109 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxABMc6KBvyWaX3UzB4AaABAg
+2025-07-25 15:12:02.292 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugyy-UuWso08MITcBEZ4AaABAg
+2025-07-25 15:12:06.100 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgywpMuka69b9PkdXnd4AaABAg
+2025-07-25 15:12:07.498 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwuXp59wb51u6ov-lR4AaABAg
+2025-07-25 15:12:14.373 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxCtu7uju6Sin1CJ_x4AaABAg
+2025-07-25 15:12:17.588 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxVJXp7_MIwETl5XiZ4AaABAg
+2025-07-25 15:12:20.084 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxuCJYFxxWhEGBE91Z4AaABAg
+2025-07-25 15:12:20.742 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyFW_RJa2ryWC-4VkR4AaABAg
+2025-07-25 15:12:21.992 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugze-yuV4EAIquG3W_p4AaABAg
+2025-07-25 15:12:22.937 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz8FmK8A7BlYHFlXDR4AaABAg
+2025-07-25 15:12:25.467 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugx4cvqiQHPWZmSprdZ4AaABAg
+2025-07-25 15:12:32.619 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxCWxR5-oW9wSLLdal4AaABAg
+2025-07-25 15:12:33.208 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw9lcKV2hsJlpjY9a14AaABAg
+2025-07-25 15:12:36.242 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwA32vrwvWxhj-bCuV4AaABAg
+2025-07-25 15:12:40.494 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwPY3cyJK94wXwVRah4AaABAg
+2025-07-25 15:12:44.805 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzVzfuCg2VesiZA_fZ4AaABAg
+2025-07-25 15:12:46.130 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyEomyjo_b19bjF6854AaABAg
+2025-07-25 15:12:55.459 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugzs52Cfcw8tlNw7yJt4AaABAg
+2025-07-25 15:12:57.642 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy7bGwwJT5JmnX_dlZ4AaABAg
+2025-07-25 15:13:02.252 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugzgq7E7xaPOwtu3I9V4AaABAg
+2025-07-25 15:13:03.809 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxGAlnvSkUYODaVPcF4AaABAg
+2025-07-25 15:13:04.973 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw2WcQBuZ3EaW5iX8x4AaABAg
+2025-07-25 15:13:11.193 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzGFQPHu2pHYHlvgIJ4AaABAg
+2025-07-25 15:13:13.033 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugx9WE5pBZAL9kb__V94AaABAg
+2025-07-25 15:13:15.373 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugyb0cayZcRgCJ4S4dR4AaABAg
+2025-07-25 15:13:17.800 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwO4LPlcRG8en4EQYF4AaABAg
+2025-07-25 15:13:18.459 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwJB6_wz3pznTbYxkJ4AaABAg
+2025-07-25 15:13:22.711 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz4qiHtj1489zg3X1J4AaABAg
+2025-07-25 15:13:23.883 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugzy_0bjRQ1PaEqOg8F4AaABAg
+2025-07-25 15:13:26.984 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyMvm5yuCFNx375XMB4AaABAg
+2025-07-25 15:13:29.667 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz9SgUULcDVQbCB8gF4AaABAg
+2025-07-25 15:13:30.676 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwV149LSn9HbsY03DB4AaABAg
+2025-07-25 15:13:32.226 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyzWF5yvcmoUnnQ5D94AaABAg
+2025-07-25 15:13:40.949 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugzh3WKvVOJs9jTTzNp4AaABAg
+2025-07-25 15:13:51.213 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzRL2eouF5-fsfSez54AaABAg
+2025-07-25 15:14:00.301 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz8HCdFx6E4R2-O0Mx4AaABAg
+2025-07-25 15:14:01.384 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwTULhzsD2YLRhX8_R4AaABAg
+2025-07-25 15:14:13.465 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy7c-rFkcORobinDId4AaABAg
+2025-07-25 15:14:16.500 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwSIRHGIMBbO-Pd4Fp4AaABAg
+2025-07-25 15:14:26.947 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwH7Xgm79kdO-ZTZ_l4AaABAg
+2025-07-25 15:14:30.989 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxiAs7yzbK6rZDfFcV4AaABAg
+2025-07-25 15:14:33.848 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwBnV4m5vTYJv1oT694AaABAg
+2025-07-25 15:14:42.905 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzYMiWkK7nk-SsR6ER4AaABAg
+2025-07-25 15:14:43.900 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugxih14-SCDtupsRwuR4AaABAg
+2025-07-25 15:14:46.495 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwQaTL_SlSqyfb_RB94AaABAg
+2025-07-25 15:14:48.233 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyZGGEFVZSEj3eJOH54AaABAg
+2025-07-25 15:14:49.563 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxRwYFhcRsGqbh04aF4AaABAg
+2025-07-25 15:14:50.806 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxyLGNcYuYaUxKfosV4AaABAg
+2025-07-25 15:14:58.411 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw5YEl_dbWpiAAMGwl4AaABAg
+2025-07-25 15:15:00.113 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwRvbiRmJTYBrzJXfZ4AaABAg
+2025-07-25 15:15:01.893 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzL2HwJixiYMIkA3sx4AaABAg
+2025-07-25 15:15:14.418 | INFO     | src.data_utils:save_analysis_results:72 - DEBUG: Preparing to save object with 10 videos and 200 total comments.
+2025-07-25 15:15:14.419 | INFO     | src.data_utils:save_analysis_results:77 - Saving analysis results to: /home/tkh/repos/hugging_face/youtube_comment_analyzer/processed_data/analysis_vahid_bahman.json
+2025-07-25 15:15:14.448 | SUCCESS  | src.data_utils:save_analysis_results:81 - Successfully saved analysis results to analysis_vahid_bahman.json
+2025-07-25 15:15:44.755 | INFO     | src.analysis:load_analysis_pipelines:29 - Loading analysis models. Using device: CPU
+2025-07-25 15:15:44.756 | INFO     | src.analysis:load_analysis_pipelines:32 - Loading Persian emotion model: /home/tkh/huggingface_models/HooshvareLab-bert-fa-base-uncased-clf-persiannews
+2025-07-25 15:15:45.505 | SUCCESS  | src.analysis:load_analysis_pipelines:39 - Persian emotion model loaded successfully.
+2025-07-25 15:15:45.506 | INFO     | src.analysis:load_analysis_pipelines:42 - Loading translation model: /home/tkh/huggingface_models/persiannlp-mt5-base-translation
+2025-07-25 15:15:52.802 | SUCCESS  | src.analysis:load_analysis_pipelines:48 - Translation model loaded successfully.
+2025-07-25 15:15:52.803 | INFO     | src.analysis:load_analysis_pipelines:51 - Loading English emotion model: /home/tkh/huggingface_models/j-hartmann-emotion-english-distilroberta-base
+2025-07-25 15:15:53.171 | SUCCESS  | src.analysis:load_analysis_pipelines:58 - English emotion model loaded successfully.
+2025-07-25 15:15:53.171 | INFO     | src.analysis:load_analysis_pipelines:61 - Loading irony model: /home/tkh/huggingface_models/twitter-roberta-base-irony
+2025-07-25 15:15:53.725 | SUCCESS  | src.analysis:load_analysis_pipelines:67 - Irony model loaded successfully.
+2025-07-25 15:15:57.717 | INFO     | src.data_utils:load_channel_data:25 - Loading data from: /home/tkh/repos/ml/graph-ml/youtube/data_collection/processed_data/channels/vahid_bahman.json
+2025-07-25 15:15:58.677 | SUCCESS  | src.data_utils:load_channel_data:29 - Successfully loaded raw data from vahid_bahman.json
+2025-07-25 15:15:59.242 | INFO     | src.data_utils:load_or_initialize_results:49 - Found existing analysis file. Loading: analysis_vahid_bahman.json
+2025-07-25 15:16:45.531 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxCN77FsYMx8EQkC_N4AaABAg
+2025-07-25 15:16:46.013 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz1uZzm1L6y_flwe8h4AaABAg
+2025-07-25 15:16:49.462 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwK9k6bILYc2DO6WpJ4AaABAg
+2025-07-25 15:16:59.148 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwyTAYgxfbuuMUuO3V4AaABAg
+2025-07-25 15:17:00.036 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxwX7DGqWgEbIqkKT14AaABAg
+2025-07-25 15:17:01.132 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugzgbkdj3fqPZy8p9pB4AaABAg
+2025-07-25 15:17:01.913 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugyi8OFkDfjWP4lQ0fp4AaABAg
+2025-07-25 15:17:02.667 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwvEYb44KNQ2j6Ujbp4AaABAg
+2025-07-25 15:17:04.574 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyuJjHJoDzDSv6MNTl4AaABAg
+2025-07-25 15:17:06.158 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxiysVZoi07dzRBFdZ4AaABAg
+2025-07-25 15:17:11.278 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzZgtfVsbncR8D3arZ4AaABAg
+2025-07-25 15:17:19.258 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyoA_58gQzu222VKCp4AaABAg
+2025-07-25 15:17:21.339 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyOCdgBs4nkBe8lTf14AaABAg
+2025-07-25 15:17:25.806 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzfiHZGRkwLWIoaMNl4AaABAg
+2025-07-25 15:17:26.235 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzvpMeyOTxxt08l5eV4AaABAg
+2025-07-25 15:17:27.003 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzS5iIpGCcN2KeCI2d4AaABAg
+2025-07-25 15:17:31.618 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyItHb-IPOrBLSR48p4AaABAg
+2025-07-25 15:17:33.841 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgycjPCbp49nKtlP-Vl4AaABAg
+2025-07-25 15:17:38.153 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxF5TStgVncq6OSfD94AaABAg
+2025-07-25 15:17:40.264 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugx1_lY-nYgZxJhuv-J4AaABAg

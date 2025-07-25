@@ -29,4 +29,4 @@ ANALYSIS_RESULTS_KEY = "analysis_results"
 
 # --- Interactive Mode Defaults ---
 # Default number of comments to process per video in interactive mode.
-DEFAULT_COMMENTS_PER_VIDEO = 10
+DEFAULT_COMMENTS_PER_VIDEO = 10000

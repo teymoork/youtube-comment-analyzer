@@ -1,15 +1,33 @@
-# /home/tkh/repos/hugging_face/youtube_comment_analyzer/.gitignore
-
-# Poetry / Python
-.venv/
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
 
-# IDE specific
-.idea/
-.vscode/
+# Poetry
+poetry.lock
 
-# Generated data
+# Data files
+*.json
+*.csv
+*.db
+*.sqlite3
 processed_data/
 
-# Temporary scripts
+# Log files
+*.log
+app_log.txt
+
+# IDE / Editor specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS specific
+.DS_Store
+Thumbs.db
