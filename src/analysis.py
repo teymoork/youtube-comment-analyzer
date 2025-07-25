@@ -89,8 +89,8 @@ def translate_text(text: str, pipeline: Pipeline) -> Optional[str]:
     """Translates Persian text to English, handling longer inputs."""
     if not text or not isinstance(text, str): return None
     try:
-        # Set a higher max_length to handle longer comments. 512 is a safe default.
-        results = pipeline(text, max_length=512)
+        # Explicitly set max_new_tokens to None to ensure max_length is used.
+        results = pipeline(text, max_length=512, max_new_tokens=None)
         if results and isinstance(results, list) and 'translation_text' in results[0]:
             return results[0]['translation_text']
         return None

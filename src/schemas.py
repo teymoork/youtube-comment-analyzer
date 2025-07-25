@@ -1,4 +1,4 @@
-# /home/tkh/repos/hugging_face/youtube_comment_analyzer/src/emassch.py
+# /home/tkh/repos/hugging_face/youtube_comment_analyzer/src/schemas.py
 """
 Defines the Pydantic models for structuring and validating YouTube data within the application.
 
@@ -176,7 +176,7 @@ class StoredVideoMetadata(BaseTimestampedModel):
         elif isinstance(value, datetime):
             dt_value = value
         else:
-            raise TypeError("Video datetime field must be a datetime object or an ISO string")
+            raise TypeError("Datetime field must be a datetime object or an ISO string")
 
         if dt_value.tzinfo is None:
             return dt_value.replace(tzinfo=timezone.utc)

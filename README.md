@@ -1,80 +1,67 @@
-YouTube Comment Analyzer
-This project is an interactive command-line tool 🛠️ for performing advanced, multi-stage analysis on Persian YouTube comments. It processes large JSON data files, applying a series of Hugging Face models to derive rich insights from the text.
+# /home/tkh/repos/hugging_face/youtube_comment_analyzer/README.md
 
-✨ Features
-Interactive CLI: A user-friendly, menu-driven interface for selecting channels and analysis tasks.
+# YouTube Comment Analyzer
 
-Multi-Stage Analysis Pipeline: Each comment undergoes a four-stage analysis:
+This project is an interactive command-line tool for performing advanced, multi-stage analysis on Persian YouTube comments. It is designed to process large JSON data files, applying a series of Hugging Face models to derive rich insights from comment text.
 
-Persian Emotion Analysis: Classifies the original comment using a native Persian model.
+The application is built to be robust against network issues by loading all AI models from local storage.
 
-Translation: Translates the Persian comment into English.
+## Features
 
-English Emotion Analysis: Classifies the translated text into one of 7 emotions.
+- **Interactive CLI:** A user-friendly, menu-driven interface for selecting channels and analysis tasks.
+- **Local Model Execution:** All Hugging Face models are loaded from the local filesystem, bypassing network connectivity issues and ensuring consistent, offline operation.
+- **Multi-Stage Analysis Pipeline:** Each comment undergoes a four-stage analysis:
+    1.  **Persian Sentiment Analysis:** Classifies the original comment text.
+    2.  **Translation:** Translates the Persian comment into English.
+    3.  **English Emotion Analysis:** Classifies the translated text into a standard set of 7 emotions.
+    4.  **Irony Detection:** Analyzes the translated text for irony and sarcasm.
+- **Decoupled & Persistent Results:** The tool saves all analysis results to separate `analysis_...json` files. It automatically detects previously analyzed comments and skips them, saving time and computational resources on every run.
+- **Robust Data Handling:** Uses Pydantic schemas to safely parse and validate input data, gracefully handling missing or incomplete sections (e.g., videos without comments).
+- **Comprehensive Logging:** Logs all operations to both the console and a persistent `app_log.txt` file for easy debugging.
 
-Irony Detection: Analyzes the translated text for irony and sarcasm.
+## Setup
 
-Persistent Results: Saves all analysis results to the processed_data/ directory. It automatically skips previously analyzed comments, saving time and computational resources on subsequent runs. ⚡
+### Prerequisites
 
-Configurable Data Source: The input directory for channel data is easily configured in src/config.py.
-
-Robust Dependency Management: Uses Poetry for reproducible dependency management.
-
-🚀 Getting Started
-Prerequisites
-Python 3.9+
-
-Poetry
-
-Git
-
-Essential build tools. On Debian/Ubuntu, install them with:
-
-Bash
-
-sudo apt update && sudo apt install build-essential cmake pkg-config
+- Python 3.9+
+- [Poetry](https://python-poetry.org/docs/#installation) for package management.
+- Git for version control.
+- Essential build tools for compiling certain Python packages. On Debian/Ubuntu, install them with:
+  ```bash
+  sudo apt update && sudo apt install build-essential cmake pkg-config
+Use code with caution.
+Markdown
 Installation
 Clone the repository:
-
-Bash
-
+Generated bash
 git clone <your-repository-url>
 cd youtube_comment_analyzer
-Configure Poetry (Optional but Recommended):
-To create the virtual environment inside the project folder (.venv), run:
-
+Use code with caution.
 Bash
-
+Configure Poetry (Recommended):
+To ensure the virtual environment is created inside the project folder (as .venv/), run this command once:
+Generated bash
 poetry config virtualenvs.in-project true
+Use code with caution.
+Bash
 Install dependencies:
-This command creates the virtual environment and installs all required packages from pyproject.toml.
-
-Bash
-
+This command will create a .venv virtual environment and install all required packages.
+Generated bash
 poetry install
-Note
-The first time you run the application, it will download several gigabytes of model data from Hugging Face. This is a one-time process.
-
+Use code with caution.
+Bash
+Download AI Models:
+Due to network restrictions, the models must be downloaded manually from an unrestricted network (e.g., using a VPN or a different computer) and placed in a ~/huggingface_models directory in your home folder. See the RSD.md for the exact file structure and download links.
 Configure Data Source:
-Open src/config.py and set the INPUT_DATA_DIR variable to point to your directory of channel JSON files.
-
-Python
-
-# src/config.py
-from pathlib import Path
-
-INPUT_DATA_DIR = Path("/path/to/your/channel/data/files/")
-💻 Usage
-To start the interactive application, run the following command from the project's root directory:
-
+Open the src/config.py file and ensure the INPUT_DATA_DIR variable points to the directory containing your channel JSON files.
+Usage
+To start the application, run the following command from the project's root directory:
+Generated bash
+poetry run python main.py
+Use code with caution.
 Bash
-
-poetry run python main.py run
 This will launch the interactive menu.
-
 Verbose Mode
-To see analysis results printed to the console in real-time as they are generated, use the --verbose or -v flag:
-
-Bash
-
-poetry run python main.py run --verbose
+To see the analysis results printed to the console in real-time as they are generated, use the --verbose or -v flag:
+Generated bash
+poetry run python main.py --verbose

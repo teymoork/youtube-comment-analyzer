@@ -34,6 +34,14 @@ from transformers import Pipeline
 app = typer.Typer(help="A CLI tool to analyze YouTube comments with a multi-stage pipeline.")
 console = Console()
 
+# --- BUG FIX ---
+# A state management class to ensure the results dictionary is passed by reference,
+# preventing accidental copies and ensuring modifications are always saved.
+class AnalysisState:
+    """A simple container to manage the analysis results dictionary."""
+    def __init__(self, data: Dict[str, Any]):
+        self.results = data
+
 def select_channel_file() -> Optional[Path]:
     """Displays a menu of channel files for the user to choose from."""
     console.print("\n[bold cyan]Select a channel to analyze:[/bold cyan]")
@@ -82,6 +90,11 @@ def run_analysis_on_comment(
         app_logger.warning(f"Skipping comment {comment_id} due to empty text.")
         return None
 
+    MAX_COMMENT_CHARS = 500
+    if len(comment_text) > MAX_COMMENT_CHARS:
+        app_logger.warning(f"Comment {comment_id} is too long ({len(comment_text)} chars). Truncating to {MAX_COMMENT_CHARS}.")
+        comment_text = comment_text[:MAX_COMMENT_CHARS]
+
     app_logger.info(f"Analyzing comment ID: {comment_id}")
     
     persian_emotion_result = analyze_persian_emotion(comment_text, persian_emotion_pipeline)
@@ -117,67 +130,69 @@ def run_analysis_on_comment(
 
 def handle_batch_analysis(
     channel_data: ChannelData,
-    analysis_results: Dict[str, Any],
+    state: AnalysisState,  # Use the state object
     pipelines: Tuple[Pipeline, Pipeline, Pipeline, Pipeline],
     verbose: bool
 ):
-    """Handler for analyzing n comments from m videos."""
+    """Handler for analyzing n comments from m videos with detailed progress."""
     num_comments_per_video = IntPrompt.ask(
         f"How many new comments to analyze per video?",
         default=DEFAULT_COMMENTS_PER_VIDEO
     )
-    num_videos = IntPrompt.ask(
+    num_videos_to_process = IntPrompt.ask(
         "How many videos to process?",
         default=len(channel_data.videos)
     )
     
     processed_count_total = 0
-    videos_processed = 0
+    videos_to_process = list(channel_data.videos.items())[:num_videos_to_process]
 
-    for video_id, video_data in channel_data.videos.items():
-        if videos_processed >= num_videos:
-            break
+    for video_index, (video_id, video_data) in enumerate(videos_to_process):
         
-        console.print(f"\n[bold]Processing Video:[/] {video_data.video_metadata.title} ({video_id})")
-        processed_count_video = 0
+        console.print(
+            f"\n[bold]Processing Video {video_index + 1}/{len(videos_to_process)}:[/] "
+            f"{video_data.video_metadata.title} ({video_id})"
+        )
         
         sorted_comments = sorted(
             video_data.comments.values(),
             key=lambda c: c.published_at,
             reverse=True
         )
-
-        for comment in sorted_comments:
-            if processed_count_video >= num_comments_per_video:
-                break
-            
-            # Updated persistence check
-            if video_id not in analysis_results or comment.comment_id not in analysis_results[video_id]:
-                result = run_analysis_on_comment(
-                    comment.comment_id,
-                    comment.text_original,
-                    pipelines,
-                    verbose
-                )
-                if result:
-                    # Updated result storage
-                    if video_id not in analysis_results:
-                        analysis_results[video_id] = {}
-                    analysis_results[video_id][comment.comment_id] = result
-                    processed_count_video += 1
-                    processed_count_total += 1
         
-        if processed_count_video == 0:
-            console.print("[yellow]No new comments to analyze in this video.[/yellow]")
+        new_comments = [
+            c for c in sorted_comments 
+            if video_id not in state.results or c.comment_id not in state.results.get(video_id, {}).get("comments", {})
+        ]
+        
+        comments_to_analyze = new_comments[:num_comments_per_video]
+        total_to_analyze_in_video = len(comments_to_analyze)
 
-        videos_processed += 1
+        if total_to_analyze_in_video == 0:
+            console.print("[yellow]No new comments to analyze in this video.[/yellow]")
+            continue
+
+        for comment_index, comment in enumerate(comments_to_analyze):
+            console.print(f"  Analyzing comment {comment_index + 1}/{total_to_analyze_in_video}...")
+            
+            result = run_analysis_on_comment(
+                comment.comment_id,
+                comment.text_original,
+                pipelines,
+                verbose
+            )
+            if result:
+                video_results = state.results.setdefault(video_id, {})
+                comment_results = video_results.setdefault("comments", {})
+                comment_results[comment.comment_id] = result
+                processed_count_total += 1
     
-    console.print(f"\n[bold green]Batch analysis complete. Analyzed {processed_count_total} new comments across {videos_processed} videos.[/bold green]")
-    return analysis_results
+    console.print(f"\n[bold green]Batch analysis complete. Analyzed {processed_count_total} new comments across {len(videos_to_process)} videos.[/bold green]")
+    # No return needed as we modified the state object directly
 
 def handle_video_analysis(
     channel_data: ChannelData,
-    analysis_results: Dict[str, Any],
+    state: AnalysisState,  # Use the state object
     pipelines: Tuple[Pipeline, Pipeline, Pipeline, Pipeline],
     verbose: bool
 ):
@@ -200,12 +215,11 @@ def handle_video_analysis(
         video_id = selected_video_data.video_metadata.video_id
     except (ValueError, IndexError):
         console.print("[red]Invalid selection.[/red]")
-        return analysis_results
+        return
 
     processed_count = 0
     for comment_id, comment in selected_video_data.comments.items():
-        # Updated persistence check
-        if video_id not in analysis_results or comment_id not in analysis_results[video_id]:
+        if video_id not in state.results or comment_id not in state.results.get(video_id, {}).get("comments", {}):
             result = run_analysis_on_comment(
                 comment_id,
                 comment.text_original,
@@ -213,14 +227,13 @@ def handle_video_analysis(
                 verbose
             )
             if result:
-                # Updated result storage
-                if video_id not in analysis_results:
-                    analysis_results[video_id] = {}
-                analysis_results[video_id][comment_id] = result
+                video_results = state.results.setdefault(video_id, {})
+                comment_results = video_results.setdefault("comments", {})
+                comment_results[comment_id] = result
                 processed_count += 1
     
     console.print(f"\n[bold green]Video analysis complete. Analyzed {processed_count} new comments.[/bold green]")
-    return analysis_results
+    # No return needed as we modified the state object directly
 
 def process_channel(
     channel_file: Path,
@@ -237,14 +250,14 @@ def process_channel(
         console.print(f"[bold green]Successfully validated data for channel: {channel_data.channel_metadata.title}[/bold green]")
     except ValidationError as e:
         console.print(f"[bold red]Data validation error for {channel_file.name}: {e}[/bold red]")
+        app_logger.error(f"Pydantic validation failed for {channel_file.name}: {e}")
         return
 
-    # Updated output filename
     output_filename = f"analysis_{channel_file.name}"
     output_path = PROCESSED_DATA_DIR / output_filename
     
-    # Updated loading function call
-    analysis_results = load_or_initialize_results(output_path)
+    # Initialize the state object
+    state = AnalysisState(load_or_initialize_results(output_path))
     
     while True:
         console.print("\n[bold cyan]Analysis Options:[/bold cyan]")
@@ -256,12 +269,11 @@ def process_channel(
         choice = Prompt.ask("Enter your choice", default="s")
 
         if choice == '1':
-            analysis_results = handle_batch_analysis(channel_data, analysis_results, pipelines, verbose)
+            handle_batch_analysis(channel_data, state, pipelines, verbose)
         elif choice == '2':
-            analysis_results = handle_video_analysis(channel_data, analysis_results, pipelines, verbose)
+            handle_video_analysis(channel_data, state, pipelines, verbose)
         elif choice.lower() == 's':
-            # Updated saving function call
-            save_analysis_results(output_path, analysis_results)
+            save_analysis_results(output_path, state.results)
             break
         elif choice.lower() == 'b':
             console.print("[yellow]Returning to main menu without saving changes.[/yellow]")

@@ -66,7 +66,12 @@ def save_analysis_results(output_path: Path, analysis_results: Dict[str, Any]):
         output_path: The path to save the analysis JSON file.
         analysis_results: The dictionary of analysis results, keyed by video_id.
     """
-    # Ensure the output directory exists
+    # --- DEBUGGING STEP ---
+    # Calculate the total number of comments in the object we are about to save.
+    total_comments_to_save = sum(len(video_data.get("comments", {})) for video_data in analysis_results.values())
+    app_logger.info(f"DEBUG: Preparing to save object with {len(analysis_results)} videos and {total_comments_to_save} total comments.")
+    # --- END DEBUGGING STEP ---
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     app_logger.info(f"Saving analysis results to: {output_path}")

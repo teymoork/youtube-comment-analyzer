@@ -1,0 +1,97 @@
+2025-07-25 14:37:04.980 | INFO     | src.analysis:load_analysis_pipelines:29 - Loading analysis models. Using device: CPU
+2025-07-25 14:37:04.980 | INFO     | src.analysis:load_analysis_pipelines:32 - Loading Persian emotion model: /home/tkh/huggingface_models/HooshvareLab-bert-fa-base-uncased-clf-persiannews
+2025-07-25 14:37:05.771 | SUCCESS  | src.analysis:load_analysis_pipelines:39 - Persian emotion model loaded successfully.
+2025-07-25 14:37:05.771 | INFO     | src.analysis:load_analysis_pipelines:42 - Loading translation model: /home/tkh/huggingface_models/persiannlp-mt5-base-translation
+2025-07-25 14:37:12.781 | SUCCESS  | src.analysis:load_analysis_pipelines:48 - Translation model loaded successfully.
+2025-07-25 14:37:12.781 | INFO     | src.analysis:load_analysis_pipelines:51 - Loading English emotion model: /home/tkh/huggingface_models/j-hartmann-emotion-english-distilroberta-base
+2025-07-25 14:37:13.223 | SUCCESS  | src.analysis:load_analysis_pipelines:58 - English emotion model loaded successfully.
+2025-07-25 14:37:13.223 | INFO     | src.analysis:load_analysis_pipelines:61 - Loading irony model: /home/tkh/huggingface_models/twitter-roberta-base-irony
+2025-07-25 14:37:13.942 | SUCCESS  | src.analysis:load_analysis_pipelines:67 - Irony model loaded successfully.
+2025-07-25 14:37:19.043 | INFO     | src.data_utils:load_channel_data:25 - Loading data from: /home/tkh/repos/ml/graph-ml/youtube/data_collection/processed_data/channels/vahid_bahman.json
+2025-07-25 14:37:19.977 | SUCCESS  | src.data_utils:load_channel_data:29 - Successfully loaded raw data from vahid_bahman.json
+2025-07-25 14:37:20.535 | INFO     | src.data_utils:load_or_initialize_results:57 - No analysis file found for analysis_vahid_bahman.json. Initializing new results.
+2025-07-25 14:38:31.720 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugx2EzaU59VXAxSCRHl4AaABAg
+2025-07-25 14:38:36.265 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyaLgkHR6NlSHpovEd4AaABAg
+2025-07-25 14:38:38.860 | WARNING  | __main__:run_analysis_on_comment:95 - Comment UgxViegIf9Ctzx3s8Z54AaABAg is too long (658 chars). Truncating to 500.
+2025-07-25 14:38:38.860 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxViegIf9Ctzx3s8Z54AaABAg
+2025-07-25 14:38:54.957 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzYwy4f5t6-rc8alKh4AaABAg
+2025-07-25 14:38:57.986 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugyr7jDIL8IO1uYoP_14AaABAg
+2025-07-25 14:39:00.665 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwKTJArEBCkIBj_qoN4AaABAg
+2025-07-25 14:39:09.823 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxvGcXH7yEshLthPVF4AaABAg
+2025-07-25 14:39:14.659 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzDQJALKJnKQnPvmO14AaABAg
+2025-07-25 14:39:15.919 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgywZf9jfeADsJvZPjJ4AaABAg
+2025-07-25 14:39:20.195 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwhGoZsLrnnEPu3g3d4AaABAg
+2025-07-25 14:39:23.143 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwmcAWiaFfIUcToovt4AaABAg
+2025-07-25 14:39:24.470 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy8Hwk03qZ_9cKih9l4AaABAg
+2025-07-25 14:39:26.232 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzGWYUJ5HdmBolgjtB4AaABAg
+2025-07-25 14:39:27.743 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxYoTF70_2TKMK-q694AaABAg
+2025-07-25 14:39:29.210 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugyvunpw9YUbT39wp394AaABAg
+2025-07-25 14:39:29.723 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugxt9g2wxPZv85kTKkJ4AaABAg
+2025-07-25 14:39:36.822 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxthuAvMlr_KoRatpN4AaABAg
+2025-07-25 14:39:40.226 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxTbOrsahaFTffzInd4AaABAg
+2025-07-25 14:39:47.105 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzReMNkTQjo5weWAVV4AaABAg
+2025-07-25 14:39:48.865 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzlEZLhzO4BApy0Scd4AaABAg
+2025-07-25 14:40:07.364 | INFO     | src.data_utils:save_analysis_results:72 - DEBUG: Preparing to save object with 1 videos and 20 total comments.
+2025-07-25 14:40:07.365 | INFO     | src.data_utils:save_analysis_results:77 - Saving analysis results to: /home/tkh/repos/hugging_face/youtube_comment_analyzer/processed_data/analysis_vahid_bahman.json
+2025-07-25 14:40:07.369 | SUCCESS  | src.data_utils:save_analysis_results:81 - Successfully saved analysis results to analysis_vahid_bahman.json
+2025-07-25 14:47:21.909 | INFO     | src.analysis:load_analysis_pipelines:29 - Loading analysis models. Using device: CPU
+2025-07-25 14:47:21.909 | INFO     | src.analysis:load_analysis_pipelines:32 - Loading Persian emotion model: /home/tkh/huggingface_models/HooshvareLab-bert-fa-base-uncased-clf-persiannews
+2025-07-25 14:47:22.703 | SUCCESS  | src.analysis:load_analysis_pipelines:39 - Persian emotion model loaded successfully.
+2025-07-25 14:47:22.703 | INFO     | src.analysis:load_analysis_pipelines:42 - Loading translation model: /home/tkh/huggingface_models/persiannlp-mt5-base-translation
+2025-07-25 14:47:29.794 | SUCCESS  | src.analysis:load_analysis_pipelines:48 - Translation model loaded successfully.
+2025-07-25 14:47:29.794 | INFO     | src.analysis:load_analysis_pipelines:51 - Loading English emotion model: /home/tkh/huggingface_models/j-hartmann-emotion-english-distilroberta-base
+2025-07-25 14:47:30.151 | SUCCESS  | src.analysis:load_analysis_pipelines:58 - English emotion model loaded successfully.
+2025-07-25 14:47:30.151 | INFO     | src.analysis:load_analysis_pipelines:61 - Loading irony model: /home/tkh/huggingface_models/twitter-roberta-base-irony
+2025-07-25 14:47:30.889 | SUCCESS  | src.analysis:load_analysis_pipelines:67 - Irony model loaded successfully.
+2025-07-25 14:47:37.729 | INFO     | src.data_utils:load_channel_data:25 - Loading data from: /home/tkh/repos/ml/graph-ml/youtube/data_collection/processed_data/channels/vahid_bahman.json
+2025-07-25 14:47:38.708 | SUCCESS  | src.data_utils:load_channel_data:29 - Successfully loaded raw data from vahid_bahman.json
+2025-07-25 14:47:39.282 | INFO     | src.data_utils:load_or_initialize_results:49 - Found existing analysis file. Loading: analysis_vahid_bahman.json
+2025-07-25 14:48:04.055 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy87jzCv7cxdfpzTcl4AaABAg
+2025-07-25 14:48:06.832 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw7jILeOnUYQdML6U14AaABAg
+2025-07-25 14:48:07.699 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugyv6HOG_lXhNE7rS_14AaABAg
+2025-07-25 14:48:11.623 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzlidkuwgaeKN3g-314AaABAg
+2025-07-25 14:48:13.217 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgyiN2MGrpoSN5ysr6p4AaABAg
+2025-07-25 14:48:22.421 | INFO     | src.data_utils:save_analysis_results:72 - DEBUG: Preparing to save object with 2 videos and 25 total comments.
+2025-07-25 14:48:22.422 | INFO     | src.data_utils:save_analysis_results:77 - Saving analysis results to: /home/tkh/repos/hugging_face/youtube_comment_analyzer/processed_data/analysis_vahid_bahman.json
+2025-07-25 14:48:22.428 | SUCCESS  | src.data_utils:save_analysis_results:81 - Successfully saved analysis results to analysis_vahid_bahman.json
+2025-07-25 14:48:57.765 | INFO     | src.analysis:load_analysis_pipelines:29 - Loading analysis models. Using device: CPU
+2025-07-25 14:48:57.765 | INFO     | src.analysis:load_analysis_pipelines:32 - Loading Persian emotion model: /home/tkh/huggingface_models/HooshvareLab-bert-fa-base-uncased-clf-persiannews
+2025-07-25 14:48:58.573 | SUCCESS  | src.analysis:load_analysis_pipelines:39 - Persian emotion model loaded successfully.
+2025-07-25 14:48:58.573 | INFO     | src.analysis:load_analysis_pipelines:42 - Loading translation model: /home/tkh/huggingface_models/persiannlp-mt5-base-translation
+2025-07-25 14:49:05.649 | SUCCESS  | src.analysis:load_analysis_pipelines:48 - Translation model loaded successfully.
+2025-07-25 14:49:05.649 | INFO     | src.analysis:load_analysis_pipelines:51 - Loading English emotion model: /home/tkh/huggingface_models/j-hartmann-emotion-english-distilroberta-base
+2025-07-25 14:49:06.170 | SUCCESS  | src.analysis:load_analysis_pipelines:58 - English emotion model loaded successfully.
+2025-07-25 14:49:06.170 | INFO     | src.analysis:load_analysis_pipelines:61 - Loading irony model: /home/tkh/huggingface_models/twitter-roberta-base-irony
+2025-07-25 14:49:06.824 | SUCCESS  | src.analysis:load_analysis_pipelines:67 - Irony model loaded successfully.
+2025-07-25 14:49:11.298 | INFO     | src.data_utils:load_channel_data:25 - Loading data from: /home/tkh/repos/ml/graph-ml/youtube/data_collection/processed_data/channels/vahid_bahman.json
+2025-07-25 14:49:12.238 | SUCCESS  | src.data_utils:load_channel_data:29 - Successfully loaded raw data from vahid_bahman.json
+2025-07-25 14:49:12.800 | INFO     | src.data_utils:load_or_initialize_results:49 - Found existing analysis file. Loading: analysis_vahid_bahman.json
+2025-07-25 14:49:38.173 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzatsSiIdwSBCeKvRR4AaABAg
+2025-07-25 14:49:48.734 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzxghSO_NIW8lGyErF4AaABAg
+2025-07-25 14:49:49.259 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwL7JNXWeBDb7MxYa94AaABAg
+2025-07-25 14:49:50.024 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxxsVA78GgFsJHfO914AaABAg
+2025-07-25 14:49:50.953 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugzv5qPhH3CBBMYaLd54AaABAg
+2025-07-25 14:49:51.878 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzCguMl019p0TZBhL94AaABAg
+2025-07-25 14:49:53.407 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugy13LYErrrttwEkiw14AaABAg
+2025-07-25 14:49:57.759 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwaJzOCsMKf6z7hHSJ4AaABAg
+2025-07-25 14:50:54.341 | ERROR    | src.analysis:analyze_english_emotion:110 - An error occurred during English emotion analysis: The expanded size of the tensor (1509) must match the existing size (514) at non-singleton dimension 1.  Target sizes: [1, 1509].  Tensor sizes: [1, 514]
+2025-07-25 14:50:54.343 | ERROR    | src.analysis:analyze_irony:123 - An error occurred during irony analysis: The expanded size of the tensor (1509) must match the existing size (514) at non-singleton dimension 1.  Target sizes: [1, 1509].  Tensor sizes: [1, 514]
+2025-07-25 14:50:54.343 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgydfXYVlwU9uHNyFyd4AaABAg
+2025-07-25 14:50:55.883 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgwV0Xqu2uu6z8L97E14AaABAg
+2025-07-25 14:51:01.291 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugx-dDyTwxpjPvKtE7N4AaABAg
+2025-07-25 14:51:07.083 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzBZTYDHPXN-TMQVDd4AaABAg
+2025-07-25 14:51:10.356 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzjyxjBYlhlfX-MxG54AaABAg
+2025-07-25 14:51:17.237 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugx2oARTHAokXodCRyx4AaABAg
+2025-07-25 14:51:27.239 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugz9rfCIXK1QUvN2wAl4AaABAg
+2025-07-25 14:51:37.342 | WARNING  | __main__:run_analysis_on_comment:95 - Comment UgzMF-tUY1lAyByXapt4AaABAg is too long (767 chars). Truncating to 500.
+2025-07-25 14:51:37.342 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzMF-tUY1lAyByXapt4AaABAg
+2025-07-25 14:51:54.896 | WARNING  | __main__:run_analysis_on_comment:95 - Comment UgzoKX0C3sMwl5GHS414AaABAg is too long (767 chars). Truncating to 500.
+2025-07-25 14:51:54.896 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgzoKX0C3sMwl5GHS414AaABAg
+2025-07-25 14:52:12.355 | WARNING  | __main__:run_analysis_on_comment:95 - Comment UgxmARZkW3EmjEacUUN4AaABAg is too long (938 chars). Truncating to 500.
+2025-07-25 14:52:12.355 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: UgxmARZkW3EmjEacUUN4AaABAg
+2025-07-25 14:52:23.499 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugw_7DB9t6U_NVxsUql4AaABAg
+2025-07-25 14:52:27.878 | WARNING  | __main__:run_analysis_on_comment:95 - Comment Ugxi4aI1OO85By4SB2V4AaABAg is too long (747 chars). Truncating to 500.
+2025-07-25 14:52:27.878 | INFO     | __main__:run_analysis_on_comment:98 - Analyzing comment ID: Ugxi4aI1OO85By4SB2V4AaABAg
+2025-07-25 14:53:28.501 | INFO     | src.data_utils:save_analysis_results:72 - DEBUG: Preparing to save object with 3 videos and 45 total comments.
+2025-07-25 14:53:28.502 | INFO     | src.data_utils:save_analysis_results:77 - Saving analysis results to: /home/tkh/repos/hugging_face/youtube_comment_analyzer/processed_data/analysis_vahid_bahman.json
+2025-07-25 14:53:28.508 | SUCCESS  | src.data_utils:save_analysis_results:81 - Successfully saved analysis results to analysis_vahid_bahman.json
