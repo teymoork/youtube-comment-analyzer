@@ -30,6 +30,7 @@ class BaseTimestampedModel(BaseModel):
     @classmethod
     def ensure_retrieved_at_utc(cls, value):
         """
+
         Pydantic validator to ensure `retrieved_at` is a UTC-aware datetime object.
         """
         if isinstance(value, str):
@@ -61,15 +62,18 @@ class StoredChannelMetadata(BaseTimestampedModel):
     view_count: Optional[int] = Field(0, description="The total number of views for the channel.")
     subscriber_count: Optional[int] = Field(0, description="The total number of subscribers for the channel. Can be hidden by channel owner.")
     video_count: Optional[int] = Field(0, description="The total number of public videos uploaded by the channel.")
-    
+
     uploads_playlist_id: Optional[str] = Field(None, description="The ID of the playlist containing all channel uploads.")
 
     last_metadata_update_timestamp: Optional[datetime] = Field(default=None, description="Timestamp of the last time the core metadata (title, desc, counts) was updated from API.")
-    
+
     channel_sensuality: Optional[float] = Field(default=None, description="Aggregate sensuality score for the channel. (Total Emojis / Total Comment Chars).")
     avg_emojis_per_comment: Optional[float] = Field(default=None, description="Average number of emojis per comment across all comments on the channel.")
     avg_chars_per_comment: Optional[float] = Field(default=None, description="Average number of non-emoji characters per comment across all comments on the channel.")
     last_sensuality_calculation_timestamp: Optional[datetime] = Field(default=None, description="Timestamp of the last time sensuality metrics were calculated for this channel.")
+
+    # New field for storing aggregate analysis results for the channel
+    aggregate_analysis: Optional[AggregateAnalysis] = Field(default=None, description="Aggregated analysis scores for the entire channel.")
 
 
     @field_validator("published_at", "last_metadata_update_timestamp", "last_sensuality_calculation_timestamp", mode="before")
@@ -94,6 +98,53 @@ class StoredChannelMetadata(BaseTimestampedModel):
             return dt_value.replace(tzinfo=timezone.utc)
         return dt_value.astimezone(timezone.utc)
 
+# --- CORRECTED MODELS FOR ANALYSIS ---
+
+class IronyResult(BaseModel):
+    """Models the output of the irony detection pipeline. The label is a string."""
+    label: str
+    score: float
+
+class AnalysisResult(BaseModel):
+    """Schema for storing the multi-stage analysis of a single comment."""
+    persian_sentiment: Optional[Dict[str, float]] = None
+    english_translation: Optional[str] = None
+    # Corrected: The analysis produces a single dictionary of emotions, not a list.
+    english_emotions: Optional[Dict[str, float]] = None
+    # Corrected: The irony result is a structured object, not a simple dictionary.
+    english_irony: Optional[IronyResult] = None
+    analyzed_at: Optional[datetime] = None
+
+    @field_validator("analyzed_at", mode="before")
+    @classmethod
+    def ensure_analyzed_at_utc(cls, value):
+        if value is None:
+            return None
+        if isinstance(value, str):
+            try:
+                dt_value = datetime.fromisoformat(value.replace('Z', '+00:00'))
+            except ValueError:
+                raise ValueError(f"Invalid ISO format for analyzed_at: {value}")
+        elif isinstance(value, datetime):
+            dt_value = value
+        else:
+            raise TypeError("analyzed_at must be a datetime or ISO string")
+
+        if dt_value.tzinfo is None:
+            return dt_value.replace(tzinfo=timezone.utc)
+        return dt_value.astimezone(timezone.utc)
+
+# --- NEW MODEL FOR AGGREGATE ANALYSIS ---
+
+class AggregateAnalysis(BaseModel):
+    """Schema for storing aggregated analysis results for a video or channel."""
+    total_analyzed_comments: int = Field(..., description="The number of comments included in this aggregate.")
+    avg_persian_sentiment: Optional[Dict[str, float]] = Field(None, description="Average scores for each Persian sentiment label.")
+    avg_english_emotions: Optional[Dict[str, float]] = Field(None, description="Average scores for each English emotion label.")
+    irony_distribution: Optional[Dict[str, float]] = Field(None, description="Distribution of irony labels (e.g., {'irony': 0.25, 'not irony': 0.75}).")
+    last_calculated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
 class StoredComment(BaseModel):
     """
     Represents a single YouTube comment as stored by the application.
@@ -107,6 +158,8 @@ class StoredComment(BaseModel):
     like_count: Optional[int] = Field(0, description="The number of likes received by the comment.")
     parent_id: Optional[str] = Field(None, description="The ID of the parent comment if this is a reply. Null for top-level comments.")
     total_reply_count: Optional[int] = Field(0, description="The total number of replies to this comment (if it's a top-level comment).")
+
+    analysis: Optional[AnalysisResult] = Field(default=None, description="Holds the consolidated results of the multi-stage AI analysis.")
 
     @field_validator("published_at", "updated_at", mode="before")
     @classmethod
@@ -161,6 +214,9 @@ class StoredVideoMetadata(BaseTimestampedModel):
     avg_comment_chars: Optional[float] = Field(default=None, description="Average number of non-emoji characters per comment.")
     avg_emojis: Optional[float] = Field(default=None, description="Average number of emojis per comment.")
     video_sensuality: Optional[float] = Field(default=None, description="Sensuality score for the video. (Total Emojis / Total Comment Chars).")
+
+    # New field for storing aggregate analysis results for the video
+    aggregate_analysis: Optional[AggregateAnalysis] = Field(default=None, description="Aggregated analysis scores for this video.")
 
 
     @field_validator("published_at", "last_metadata_update_timestamp", mode="before")

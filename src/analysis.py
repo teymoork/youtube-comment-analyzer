@@ -1,124 +1,138 @@
-# /home/tkh/repos/hugging_face/youtube_comment_analyzer/src/analysis.py
-from typing import Dict, Any, Optional, Tuple, List
+import logging
+from typing import Dict, List, Optional, Any, Tuple
 
 import torch
-from transformers import pipeline, Pipeline
-from src.config import (
-    PERSIAN_EMOTION_MODEL_ID,
-    TRANSLATION_MODEL_ID,
-    ENGLISH_EMOTION_MODEL_ID,
-    IRONY_MODEL_ID,
+from transformers import (
+    pipeline,
+    Pipeline,
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    AutoModelForSeq2SeqLM,
 )
+
+from src.config import model_paths
 from src.logger_config import app_logger
 
 def load_analysis_pipelines() -> Optional[Tuple[Pipeline, Pipeline, Pipeline, Pipeline]]:
     """
-    Loads and initializes all four Hugging Face pipelines.
-
-    This function detects if a GPU is available and configures the pipelines
-    to use it for better performance.
+    Loads and initializes all the Hugging Face pipelines needed for analysis.
+    This version explicitly loads models and tokenizers before creating pipelines
+    to ensure local files are used correctly.
 
     Returns:
-        A tuple containing the initialized pipelines in the order:
-        (persian_emotion, translation, english_emotion, irony),
-        or None if loading fails.
+        A tuple containing the four initialized pipelines in order:
+        (persian_sentiment, translation, english_emotion, irony)
+        Returns None if any model fails to load.
     """
     try:
+        app_logger.info("Initializing analysis pipelines...")
         device = 0 if torch.cuda.is_available() else -1
-        device_name = "GPU" if device == 0 else "CPU"
-        app_logger.info(f"Loading analysis models. Using device: {device_name}")
+        app_logger.info(f"Using device: {'cuda:0' if device == 0 else 'cpu'}")
 
-        # 1. Persian Emotion Analysis Pipeline
-        app_logger.info(f"Loading Persian emotion model: {PERSIAN_EMOTION_MODEL_ID}")
-        persian_emotion_pipeline = pipeline(
+        # --- 1. Persian Sentiment Analysis ---
+        app_logger.info(f"Loading Persian sentiment model from: {model_paths.persian_sentiment}")
+        p_sent_path = str(model_paths.persian_sentiment)
+        p_sent_tokenizer = AutoTokenizer.from_pretrained(p_sent_path, local_files_only=True)
+        p_sent_model = AutoModelForSequenceClassification.from_pretrained(p_sent_path, local_files_only=True)
+        persian_sentiment_pipeline = pipeline(
             "text-classification",
-            model=PERSIAN_EMOTION_MODEL_ID,
+            model=p_sent_model,
+            tokenizer=p_sent_tokenizer,
+            return_all_scores=True,
             device=device,
-            return_all_scores=True
         )
-        app_logger.success("Persian emotion model loaded successfully.")
 
-        # 2. Translation Pipeline
-        app_logger.info(f"Loading translation model: {TRANSLATION_MODEL_ID}")
+        # --- 2. Persian to English Translation ---
+        app_logger.info(f"Loading translation model from: {model_paths.translation}")
+        trans_path = str(model_paths.translation)
+        trans_tokenizer = AutoTokenizer.from_pretrained(trans_path, local_files_only=True)
+        trans_model = AutoModelForSeq2SeqLM.from_pretrained(trans_path, local_files_only=True)
         translation_pipeline = pipeline(
             "translation",
-            model=TRANSLATION_MODEL_ID,
-            device=device
+            model=trans_model,
+            tokenizer=trans_tokenizer,
+            src_lang="fa_IR",
+            tgt_lang="en_XX",
+            device=device,
         )
-        app_logger.success("Translation model loaded successfully.")
 
-        # 3. English Emotion Analysis Pipeline
-        app_logger.info(f"Loading English emotion model: {ENGLISH_EMOTION_MODEL_ID}")
+        # --- 3. English Multi-Emotion Analysis ---
+        app_logger.info(f"Loading English emotion model from: {model_paths.english_emotion}")
+        e_emo_path = str(model_paths.english_emotion)
+        e_emo_tokenizer = AutoTokenizer.from_pretrained(e_emo_path, local_files_only=True)
+        e_emo_model = AutoModelForSequenceClassification.from_pretrained(e_emo_path, local_files_only=True)
         english_emotion_pipeline = pipeline(
             "text-classification",
-            model=ENGLISH_EMOTION_MODEL_ID,
+            model=e_emo_model,
+            tokenizer=e_emo_tokenizer,
+            return_all_scores=True,
             device=device,
-            return_all_scores=True
         )
-        app_logger.success("English emotion model loaded successfully.")
 
-        # 4. Irony Detection Pipeline
-        app_logger.info(f"Loading irony model: {IRONY_MODEL_ID}")
+        # --- 4. English Irony Detection ---
+        app_logger.info(f"Loading English irony model from: {model_paths.english_irony}")
+        e_irony_path = str(model_paths.english_irony)
+        e_irony_tokenizer = AutoTokenizer.from_pretrained(e_irony_path, local_files_only=True)
+        e_irony_model = AutoModelForSequenceClassification.from_pretrained(e_irony_path, local_files_only=True)
         irony_pipeline = pipeline(
             "text-classification",
-            model=IRONY_MODEL_ID,
-            device=device
+            model=e_irony_model,
+            tokenizer=e_irony_tokenizer,
+            device=device,
         )
-        app_logger.success("Irony model loaded successfully.")
-
-        return persian_emotion_pipeline, translation_pipeline, english_emotion_pipeline, irony_pipeline
+        
+        app_logger.success("All analysis models loaded successfully.")
+        return (
+            persian_sentiment_pipeline,
+            translation_pipeline,
+            english_emotion_pipeline,
+            irony_pipeline,
+        )
 
     except Exception as e:
-        app_logger.error(f"Failed to load Hugging Face models. Error: {e}")
-        app_logger.error("Please ensure you have a stable internet connection and correct model IDs.")
+        app_logger.critical(f"Failed to load one or more AI models. Error: {e}", exc_info=True)
         return None
 
-def analyze_persian_emotion(text: str, pipeline: Pipeline) -> Optional[Dict[str, float]]:
-    """Analyzes a given Persian text for emotions."""
-    if not text or not isinstance(text, str): return None
+def _process_scores(scores_list: List[Dict[str, Any]]) -> Dict[str, float]:
+    """Helper to convert a list of score dictionaries to a single dict of label:score."""
+    if not scores_list or not isinstance(scores_list, list):
+        return {}
+    return {item["label"]: round(item["score"], 4) for item in scores_list}
+
+def analyze_persian_emotion_batch(texts: List[str], pipeline: Pipeline) -> List[Optional[Dict[str, float]]]:
+    """Analyzes a batch of Persian texts for sentiment."""
     try:
-        results = pipeline(text)
-        if results and isinstance(results, list) and len(results) > 0:
-            return {item['label']: round(item['score'], 4) for item in results[0]}
-        return None
+        batch_results = pipeline(texts, top_k=None)
+        # The pipeline returns a list of lists of dicts. Process each inner list.
+        return [_process_scores(single_result) for single_result in batch_results]
     except Exception as e:
-        app_logger.error(f"An error occurred during Persian emotion analysis: {e}")
-        return None
+        app_logger.error(f"Batch Persian emotion analysis failed. Error: {e}")
+        return [None] * len(texts)
 
-def translate_text(text: str, pipeline: Pipeline) -> Optional[str]:
-    """Translates Persian text to English, handling longer inputs."""
-    if not text or not isinstance(text, str): return None
+def translate_text_batch(texts: List[str], pipeline: Pipeline) -> List[Optional[str]]:
+    """Translates a batch of Persian texts to English."""
     try:
-        # Explicitly set max_new_tokens to None to ensure max_length is used.
-        results = pipeline(text, max_length=512, max_new_tokens=None)
-        if results and isinstance(results, list) and 'translation_text' in results[0]:
-            return results[0]['translation_text']
-        return None
+        # The pipeline returns a list of dicts, each with a 'translation_text' key.
+        results = pipeline(texts, max_new_tokens=400)
+        return [res.get("translation_text") for res in results]
     except Exception as e:
-        app_logger.error(f"An error occurred during translation: {e}")
-        return None
+        app_logger.error(f"Batch translation failed. Error: {e}")
+        return [None] * len(texts)
 
-def analyze_english_emotion(text: str, pipeline: Pipeline) -> Optional[Dict[str, float]]:
-    """Analyzes a given English text for emotions."""
-    if not text or not isinstance(text, str): return None
+def analyze_english_emotion_batch(texts: List[str], pipeline: Pipeline) -> List[Optional[Dict[str, float]]]:
+    """Analyzes a batch of English texts for emotions."""
     try:
-        results = pipeline(text)
-        if results and isinstance(results, list) and len(results) > 0:
-            return {item['label']: round(item['score'], 4) for item in results[0]}
-        return None
+        batch_results = pipeline(texts, top_k=None)
+        return [_process_scores(single_result) for single_result in batch_results]
     except Exception as e:
-        app_logger.error(f"An error occurred during English emotion analysis: {e}")
-        return None
+        app_logger.error(f"Batch English emotion analysis failed. Error: {e}")
+        return [None] * len(texts)
 
-def analyze_irony(text: str, pipeline: Pipeline) -> Optional[Dict[str, Any]]:
-    """Analyzes a given English text for irony."""
-    if not text or not isinstance(text, str): return None
+def analyze_irony_batch(texts: List[str], pipeline: Pipeline) -> List[Optional[Dict[str, Any]]]:
+    """Analyzes a batch of English texts for irony."""
     try:
-        results = pipeline(text)
-        if results and isinstance(results, list) and len(results) > 0:
-            results[0]['score'] = round(results[0]['score'], 4)
-            return results[0]
-        return None
+        # The pipeline returns a list of dicts, one for each text.
+        return pipeline(texts)
     except Exception as e:
-        app_logger.error(f"An error occurred during irony analysis: {e}")
-        return None
+        app_logger.error(f"Batch irony analysis failed. Error: {e}")
+        return [None] * len(texts)

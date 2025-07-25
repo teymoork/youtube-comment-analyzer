@@ -1,85 +1,116 @@
-# /home/tkh/repos/hugging_face/youtube_comment_analyzer/src/data_utils.py
+"""
+Data utility functions for the new consolidated data architecture.
+Handles loading, saving, and updating the canonical appdata files.
+"""
 import json
 from pathlib import Path
 from typing import Optional, Dict, Any
+from datetime import datetime, timezone
 
 from pydantic import ValidationError
 
 from src.logger_config import app_logger
-from src.schemas import ChannelData
+from src.schemas import ChannelData, StoredVideoData, StoredComment
 
-def load_channel_data(file_path: Path) -> Optional[Dict[str, Any]]:
+def load_app_data(app_data_path: Path) -> Optional[ChannelData]:
     """
-    Loads a single channel's data from a JSON file.
+    Loads the application's canonical data file for a channel.
 
     Args:
-        file_path: The path to the input JSON file.
+        app_data_path: The path to the appdata_*.json file.
 
     Returns:
-        A dictionary containing the raw channel data, or None if loading fails.
+        A ChannelData object if the file exists and is valid, otherwise None.
     """
-    if not file_path.exists():
-        app_logger.error(f"File not found: {file_path}")
+    if not app_data_path.exists():
+        app_logger.warning(f"App data file not found: {app_data_path}. An update from a source file is required.")
         return None
-
-    app_logger.info(f"Loading data from: {file_path}")
+    
+    app_logger.info(f"Loading canonical app data from: {app_data_path}")
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(app_data_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
-        app_logger.success(f"Successfully loaded raw data from {file_path.name}")
-        return data
-    except json.JSONDecodeError:
-        app_logger.error(f"Failed to decode JSON from {file_path.name}.")
-        return None
-    except Exception as e:
-        app_logger.error(f"An unexpected error occurred while loading {file_path.name}: {e}")
+        channel_data = ChannelData.model_validate(data)
+        app_logger.success(f"Successfully loaded and validated app data for '{channel_data.channel_metadata.title}'.")
+        return channel_data
+    except (json.JSONDecodeError, ValidationError) as e:
+        app_logger.error(f"Failed to load or validate app data from {app_data_path.name}. The file may be corrupt. Error: {e}")
         return None
 
-def load_or_initialize_results(analysis_file_path: Path) -> Dict[str, Any]:
+def save_app_data(app_data_path: Path, data: ChannelData):
     """
-    Loads existing analysis results from a separate file or initializes a new structure.
+    Saves the ChannelData object to the application's canonical data file.
 
     Args:
-        analysis_file_path: The path to the analysis results JSON file.
+        app_data_path: The path to save the appdata_*.json file.
+        data: The ChannelData object to save.
+    """
+    app_data_path.parent.mkdir(parents=True, exist_ok=True)
+    app_logger.info(f"Saving app data to: {app_data_path}")
+    try:
+        with open(app_data_path, 'w', encoding='utf-8') as f:
+            # Use model_dump_json for Pydantic objects to ensure proper serialization
+            f.write(data.model_dump_json(indent=4))
+        app_logger.success(f"Successfully saved app data to {app_data_path.name}")
+    except Exception as e:
+        app_logger.error(f"An unexpected error occurred while saving app data: {e}")
+
+def update_data_from_source(
+    existing_data: Optional[ChannelData], 
+    source_data_dict: Dict[str, Any]
+) -> ChannelData:
+    """
+    Merges data from a raw source file into the app's canonical data object.
+
+    This function intelligently adds new videos and comments from the source
+    while preserving existing data and analysis results in the app_data.
+
+    Args:
+        existing_data: The current ChannelData object, or None if it's the first run.
+        source_data_dict: The raw data loaded from an external source JSON file.
 
     Returns:
-        A dictionary of existing or newly initialized analysis results.
+        An updated ChannelData object with the new information merged in.
     """
-    if analysis_file_path.exists():
-        app_logger.info(f"Found existing analysis file. Loading: {analysis_file_path.name}")
-        try:
-            with open(analysis_file_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except (json.JSONDecodeError, Exception) as e:
-            app_logger.warning(f"Could not read existing analysis file {analysis_file_path.name}. Starting fresh. Error: {e}")
-            return {}
-    else:
-        app_logger.info(f"No analysis file found for {analysis_file_path.name}. Initializing new results.")
-        return {}
+    app_logger.info("Starting update process from source file...")
+    
+    # Use Pydantic to parse the raw source data first
+    source_channel = ChannelData.model_validate(source_data_dict)
 
+    if existing_data is None:
+        app_logger.success("No existing app data found. Using source data as the new baseline.")
+        return source_channel
 
-def save_analysis_results(output_path: Path, analysis_results: Dict[str, Any]):
-    """
-    Saves the analysis results to a separate JSON file.
+    # Start with the existing data as the base
+    updated_data = existing_data.model_copy(deep=True)
 
-    Args:
-        output_path: The path to save the analysis JSON file.
-        analysis_results: The dictionary of analysis results, keyed by video_id.
-    """
-    # --- DEBUGGING STEP ---
-    # Calculate the total number of comments in the object we are about to save.
-    total_comments_to_save = sum(len(video_data.get("comments", {})) for video_data in analysis_results.values())
-    app_logger.info(f"DEBUG: Preparing to save object with {len(analysis_results)} videos and {total_comments_to_save} total comments.")
-    # --- END DEBUGGING STEP ---
+    # Update metadata from the newer source
+    updated_data.channel_metadata = source_channel.channel_metadata
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    new_videos_count = 0
+    new_comments_count = 0
 
-    app_logger.info(f"Saving analysis results to: {output_path}")
-    try:
-        with open(output_path, 'w', encoding='utf-8') as f:
-            json.dump(analysis_results, f, ensure_ascii=False, indent=4)
-        app_logger.success(f"Successfully saved analysis results to {output_path.name}")
-    except IOError as e:
-        app_logger.error(f"Failed to write analysis results to {output_path.name}: {e}")
-    except Exception as e:
-        app_logger.error(f"An unexpected error occurred while saving results: {e}")
+    # Iterate through videos in the source data
+    for video_id, source_video in source_channel.videos.items():
+        if video_id not in updated_data.videos:
+            # Video is entirely new, add it completely
+            updated_data.videos[video_id] = source_video
+            new_videos_count += 1
+            new_comments_count += len(source_video.comments)
+        else:
+            # Video exists, check for new comments
+            app_video = updated_data.videos[video_id]
+            
+            # Also update video metadata in case it changed (e.g., title)
+            app_video.video_metadata = source_video.video_metadata
+
+            for comment_id, source_comment in source_video.comments.items():
+                if comment_id not in app_video.comments:
+                    # Comment is new, add it
+                    app_video.comments[comment_id] = source_comment
+                    new_comments_count += 1
+    
+    updated_data.last_video_list_check_timestamp = datetime.now(timezone.utc)
+    app_logger.success(f"Update complete. Merged {new_videos_count} new videos and {new_comments_count} new comments.")
+    
+    return updated_data
